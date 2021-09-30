@@ -5,4 +5,5 @@ I have it on GitHub so I can access it from any computer, but also so it is avai
 
 ## Setup
 1. Assuming you are on a Unix-like system, add it to your path in some way. I just save the file in `/usr/local/bin`, which is already in my path. This allows you to run it from outside its storage directory.
-2. Make the file executable by running `chmod u+x git-setup.sh` (so you can run it with `./git-setup.sh` instead of `bash git-setup.sh`).
+2. Make the file executable by running `chmod u+x git-setup.sh` (so you can run it with `git-setup.sh <directory>` instead of `bash git-setup.sh <directory>`).
+3. [Optional] Add `alias git-setup="git-setup.sh"` to `.bash_profile` so you can run the command as simply `git-setup <directory>`
