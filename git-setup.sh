@@ -6,7 +6,7 @@ if [ $# -eq 0 ]; then
     while true; do
         read -p "No path supplied... Would you like to use the current directory? [y/n]: " RESPONSE
         case $RESPONSE in
-            [Yy]* ) cd $1 && break;;
+            [Yy]* ) break;;
             [Nn]* ) echo ""; echo "Usage: bash git-setup.sh <path-to-repo-directory>"; exit;;
             * ) echo "Please answer Y or N.";;
         esac
@@ -14,6 +14,8 @@ if [ $# -eq 0 ]; then
 else
     if [ ! -d "$1" ]; then
         mkdir $1 && cd $1
+    else
+        cd $1
     fi
 fi
 
