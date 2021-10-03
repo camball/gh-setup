@@ -1,5 +1,6 @@
 #!/bin/bash
 # create a new personal git repository and connect to GitHub
+# by Cameron Ball, October 2021
 
 # check cmd line args; go to directory
 if [ $# -eq 0 ]; then
