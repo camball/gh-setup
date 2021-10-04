@@ -38,8 +38,7 @@ echo "# $REPO_NAME" >> README.md
 
 # .gitignores from https://github.com/github/gitignore
 case "$OSTYPE" in
-    solaris*) echo "SOLARIS" ;;
-    darwin*)  echo "# General
+    darwin*) echo "# General
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -64,7 +63,7 @@ Icon[\r]
 Network Trash Folder
 Temporary Items
 .apdisk" >> .gitignore;; 
-    linux*)   echo "*~
+    linux*) echo "*~
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -77,7 +76,6 @@ Temporary Items
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*" >> .gitignore;;
-    bsd*)     echo "BSD" ;;
     msys|cygwin*) echo "# Windows thumbnail cache files
 Thumbs.db
 Thumbs.db:encryptable
@@ -102,7 +100,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk" >> .gitignore;;
-    *)        echo ".gitignore not created: UNKNOWN: $OSTYPE";;
+    *) echo ".gitignore not created: UNKNOWN: $OSTYPE";;
 esac
 
 git add README.md .gitignore
