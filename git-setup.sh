@@ -2,6 +2,15 @@
 # create a new personal git repository and connect to GitHub
 # by Cameron Ball, October 2021
 
+GITHUB_USERNAME="camball"
+# GITHUB_EMAIL=$(<githubemail.txt)
+
+# uncomment following lines to set up global environment
+# git config --global init.defaultBranch main # in case git is still using "master" as default
+# git config --global color.ui true
+# git config --global user.name "$GITHUB_USERNAME"
+# git config --global user.email "$GITHUB_EMAIL"
+
 # check cmd line args; go to directory
 if [ $# -eq 0 ]; then
     while true; do
@@ -20,20 +29,81 @@ else
     fi
 fi
 
-# uncomment following lines to set up global environment
-# git config --global init.defaultBranch main # in case git is still using "master" as default
-# git config --global color.ui true
-# git config --global user.name "camball"
-# GITHUB_EMAIL=$(<githubemail.txt)
-# git config --global user.email "$GITHUB_EMAIL"
-
 read -p "Enter the title of the git repository: " REPO_NAME
 echo ""
 
 git init
 
 echo "# $REPO_NAME" >> README.md
-echo ".DS_Store" >> .gitignore
+
+# .gitignores from https://github.com/github/gitignore
+case "$OSTYPE" in
+    solaris*) echo "SOLARIS" ;;
+    darwin*)  echo "# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+Icon[\r]
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk" >> .gitignore;; 
+    linux*)   echo "*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*" >> .gitignore;;
+    bsd*)     echo "BSD" ;;
+    msys|cygwin*) echo "# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk" >> .gitignore;;
+    *)        echo ".gitignore not created: UNKNOWN: $OSTYPE";;
+esac
 
 git add README.md .gitignore
 
@@ -41,10 +111,10 @@ git commit -m "First commit"
 git branch -M main
 
 echo ""
-echo "Create a new GitHub repository at github.com/camball with title "$REPO_NAME". Press return when you have completed this step."
+echo "Create a new GitHub repository at github.com/$GITHUB_USERNAME with title "$REPO_NAME". Press return when you have completed this step."
 read
 
-git remote add origin https://github.com/camball/$REPO_NAME.git
+git remote add origin https://github.com/$GITHUB_USERNAME/$REPO_NAME.git
 git push -u origin main
 
-echo "" && echo "[Process Complete] Repo available at https://github.com/camball/$REPO_NAME"
+echo "" && echo "[Process Complete] Repo available at https://github.com/$GITHUB_USERNAME/$REPO_NAME"
