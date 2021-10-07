@@ -1,5 +1,5 @@
 # New Git Repo
-Quickly create new GitHub repositories and attach them to a directory on your local computer.
+Quickly create new GitHub repositories and attach them to a git-enabled directory on your local computer.
 
 ## Dependencies
 1. This is a bash script, per the shebang, and uses bash-specific syntax/features in certain places.
