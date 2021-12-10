@@ -8,6 +8,5 @@ Quickly create new GitHub repositories and attach them to a git-enabled director
 
 ## Setup
 1. Modify the script to somehow include a GitHub token and your GitHub username in the source code. Alternatively, create a bash environment variable for `GITHUB_USER` and `MASTER_GITHUB_TOKEN` containing your username and token, respectively.
-2. Assuming you are on a Unix-like system, add the script to your path in some way (so you can run it from outside its storage directory). I just save the file in `/usr/local/bin`, which is already in my path.
-3. Make the file executable by running `chmod u+x git-setup.sh` (so you can run it with `git-setup.sh <directory>` instead of `bash git-setup.sh <directory>`).
-4. [Optional] Add `alias git-setup="git-setup.sh"` to `.bash_profile` so you can run the command as simply `git-setup <directory>`
+2. Run the make utility with `make`. Assuming you are on a Unix-like system, `make` adds the script to `/usr/local/bin`, which is likely already in your path. Doing this lets you run it from outside its storage directory.
+3. [Optional] Add `alias git-setup="git-setup.sh"` to `.bash_profile` so you can run the command as simply `git-setup <directory>`
