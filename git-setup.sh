@@ -1,6 +1,7 @@
 #!/bin/bash
 # create a new personal git repository and connect to GitHub
 
+
 GITHUB_USERNAME="$GITHUB_USER"
 GITHUB_TOKEN="$MASTER_GITHUB_TOKEN"
 
@@ -25,7 +26,7 @@ if [ $# -eq 0 ]; then
     while true; do
         read -p "Use current directory title as title of GitHub repository? [y/n]: " RESPONSE
         case $RESPONSE in
-            [Yy]* ) REPO_NAME=$(basename $PWD); break;;
+            [Yy]* ) REPO_NAME=$(basename "$PWD"); break;;
             [Nn]* ) echo ""; read -p "Enter the title of the git/GitHub repository: " REPO_NAME; break;;
             * ) echo "Please answer Y or N.";;
         esac
@@ -37,7 +38,7 @@ else
         cd $1
     fi
     
-    TEMP=$(basename $1)
+    TEMP=$(basename "$1")
     while true; do
         read -p "Use $TEMP as title of GitHub repository? [y/n]: " RESPONSE
         case $RESPONSE in
@@ -129,8 +130,8 @@ git branch -M main
 # create GitHub repository
 if [[ $(python3 --version) != "Python 3."* ]]; then
     # if Python3 not installed, user can perform manual Github repository creation.
+    echo "Dependency \"Python3\" not installed..."
     while true; do
-        echo "Dependency \"Python3\" not installed..."
         read -p "Would you like to manually create the GitHub repository? [y/n]: " RESPONSE
         case $RESPONSE in
             [Yy]* ) 
@@ -143,22 +144,40 @@ if [[ $(python3 --version) != "Python 3."* ]]; then
     done
 
 else # Python3 is available, so pip3 is also available
-    # make sure module PyGithub is installed
-    if [ $(pip3 list | grep -o "PyGithub") = "PyGithub" ]; then
-        :
+    # Even though Python3 is available, check if version is compatible with PyGithub
+    if (( $(echo "$(python3 --version | cut -c 10-) < 6" | bc -l) )); then
+        # version requirements per https://pypi.org/project/PyGithub/ on 12/10/21
+        echo "Python version $(python3 --version | cut -c 8-) is incompatible with PyGithub. Please use Python 3.6 or above to utilize PyGithub functionality."
+        while true; do
+            read -p "Would you like to manually create the GitHub repository? [y/n]: " RESPONSE
+            case $RESPONSE in
+                [Yy]* ) 
+                    echo ""
+                    echo "Create a new GitHub repository at github.com/$GITHUB_USERNAME with title "$REPO_NAME". Press return when you have completed this step."
+                    read; break;;
+                [Nn]* ) echo ""; echo "Exiting..."; exit;;
+                * ) echo "Please answer Y or N.";;
+            esac
+        done
     else
-        echo "Dependency \`PyGithub\` not installed: attempting to install with pip3..."
-        pip3 install PyGithub
-        echo ""
-    fi
-    
-    # Create GitHub repo using PyGithub
-    python3 -c "from github import Github
+        # make sure module PyGithub is installed
+        if [ "$(pip3 list | grep -o "PyGithub")" = "PyGithub" ]; then
+            :
+        else
+            echo "Dependency \`PyGithub\` not installed: attempting to install with pip3..."
+            pip3 install PyGithub
+            echo ""
+            # TODO: quit program or resolve error somehow if PyGithub couldn't be installed
+        fi
+        
+        # Create GitHub repo using PyGithub
+        python3 -c "from github import Github
 g = Github('$GITHUB_TOKEN')
 user = g.get_user()
 repo = user.create_repo('$REPO_NAME')
 quit()" # sorry for weird indentation - can't run python with bash's indentation
     # TODO: implement error handling if repository couldn't be created for some reason
+    fi
 fi
 
 git remote add origin https://github.com/$GITHUB_USERNAME/$REPO_NAME.git
