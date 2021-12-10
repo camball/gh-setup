@@ -1,6 +1,5 @@
 #!/bin/bash
 # create a new personal git repository and connect to GitHub
-# by Cameron Ball, October 2021
 
 GITHUB_USERNAME="$GITHUB_USER"
 GITHUB_TOKEN="$MASTER_GITHUB_TOKEN"
