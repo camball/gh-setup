@@ -5,6 +5,14 @@
 GITHUB_USERNAME="$GITHUB_USER"
 GITHUB_TOKEN="$MASTER_GITHUB_TOKEN"
 
+# if either variable is unavailable, abort script and notify user
+if [ -z "$GITHUB_USERNAME" ] || [ -z "$GITHUB_TOKEN" ]; then
+    echo "Exiting: GitHub credentials not found. Please ensure this script has \
+access to credentials in some way (by default, by setting \$GITHUB_USER and \
+\$MASTER_GITHUB_TOKEN environment variables in your shell's startup script \
+(i.e., .zshrc, .bashrc, etc.)"; exit;
+fi
+
 # uncomment following lines to set up global environment
 # git config --global init.defaultBranch main # in case git is still using "master" as default
 # git config --global color.ui true
