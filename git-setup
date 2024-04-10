@@ -14,12 +14,6 @@ access to a token in some way, notably by setting \$GITHUB_USER in your shell's 
 startup script (e.g., .zshrc, .bashrc, etc.)"; exit;
 fi
 
-# paste following lines in your terminal to set up your global git environment
-# git config --global init.defaultBranch main # in case git is still using "master" as default
-# git config --global color.ui true
-# git config --global user.name "your_github_username"
-# git config --global user.email "your_github_email"
-
 # check cmd line args; go to directory
 if [ $# -eq 0 ]; then
     while true; do
