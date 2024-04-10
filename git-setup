@@ -1,15 +1,17 @@
 #!/bin/bash
-# create a new personal git repository and connect to GitHub
+# Create a new personal git repository and connect to GitHub
 
-GITHUB_USERNAME="$GITHUB_USER"
-GITHUB_TOKEN="$MASTER_GITHUB_TOKEN"
+GITHUB_USERNAME=$(git config user.name)
 
-# if either variable is unavailable, abort script and notify user
-if [ -z "$GITHUB_USERNAME" ] || [ -z "$GITHUB_TOKEN" ]; then
-    echo "Exiting: GitHub credentials not found. Please ensure this script has \
-access to credentials in some way (by default, by setting \$GITHUB_USER and \
-\$MASTER_GITHUB_TOKEN environment variables in your shell's startup script \
-(i.e., .zshrc, .bashrc, etc.)"; exit;
+if [ -z "$GITHUB_USERNAME" ]; then
+    echo "Exiting: git username not found. Please ensure you've set your git \
+username with\n  git config --global user.name \"your_github_username\""; exit;
+fi
+
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "Exiting: GitHub token not found. Please ensure this script has \
+access to a token in some way, notably by setting \$GITHUB_USER in your shell's \
+startup script (e.g., .zshrc, .bashrc, etc.)"; exit;
 fi
 
 # paste following lines in your terminal to set up your global git environment
