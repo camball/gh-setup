@@ -31,10 +31,11 @@ if [ $# -eq 0 ]; then
 
     # set title of GitHub repo
     while true; do
-        read -p "Use current directory title as title of GitHub repository? [y/n]: " RESPONSE
+        CURRENT_DIR_TITLE=$(basename "$PWD")
+        read -p "Use current directory title ($CURRENT_DIR_TITLE) as title of GitHub repository? [y/n]: " RESPONSE
         case $RESPONSE in
-            [Yy]* ) USER_REPO_NAME=$(basename "$PWD"); break;;
-            [Nn]* ) echo ""; read -p "Enter the title of the git/GitHub repository: " USER_REPO_NAME; break;;
+            [Yy]* ) USER_REPO_NAME="$CURRENT_DIR_TITLE"; break;;
+            [Nn]* ) echo ""; read -p "Enter repository title to use: " USER_REPO_NAME; break;;
             * ) echo "Please answer Y or N.";;
         esac
     done
