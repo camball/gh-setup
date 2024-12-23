@@ -78,8 +78,8 @@ if [[ $(python3 --version) != "Python 3."* ]]; then
 
 else # Python3 is available, so pip3 is also available
     # Even though Python3 is available, check if version is compatible with PyGithub
-    if (( $(echo "$(python3 --version | cut -c 10-) < 6" | bc -l) )); then
-        # version requirements per https://pypi.org/project/PyGithub/ on 12/10/21
+    if (( $(echo "$(python3 --version | cut -c 10-) < 8" | bc -l) )); then
+        # version requirements per https://pypi.org/project/PyGithub/ on 12/22/24
         echo "Python version $(python3 --version | cut -c 8-) is incompatible with PyGithub. Please use Python 3.6 or above to utilize PyGithub functionality."
         manuallyCreateRepo
     else
@@ -99,7 +99,8 @@ else # Python3 is available, so pip3 is also available
             # Create GitHub repo using PyGithub
             RETURNED_REPO_NAME=$(python3 -c "from github import Github
 import sys
-g = Github('$GITHUB_TOKEN')
+auth = Auth.Token('$GITHUB_TOKEN')
+g = Github(auth=auth)
 user = g.get_user()
 repo = user.create_repo('$USER_REPO_NAME')
 sys.exit(repo.name)" 2>&1 > /dev/null) # weird indentation is to run python properly
@@ -122,7 +123,8 @@ fi
 if [ "$REPO_MANUALLY_CREATED" = true ]; then
     RETURNED_REPO_NAME=$(python3 -c "from github import Github
 import sys
-g = Github('$GITHUB_TOKEN')
+auth = Auth.Token('$GITHUB_TOKEN')
+g = Github(auth=auth)
 repos = g.search_repositories(query='$USER_REPO_NAME in:name user:$GITHUB_USERNAME')
 for repo in repos:
     sys.exit(repo.name)" 2>&1 > /dev/null) # weird indentation is to run python properly

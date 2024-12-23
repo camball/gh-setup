@@ -9,7 +9,7 @@ gh-setup path-to-directory-to-set-up/
 
 ## Install
 
-1. Export the `GITHUB_TOKEN` environment variable on shell startup (in your `.zshrc`, `.bashrc`, etc.)
+1. [Create a fine-grained access token](https://github.com/settings/personal-access-tokens/new) with "Public Repositories (read-only)" repository access (it doesn't need access to any private info). Copy the token and export it as the `GITHUB_TOKEN` environment variable on shell startup (in your `.zshrc`, `.bashrc`, etc.)
 
     ```sh
     echo "export GITHUB_TOKEN=<your_github_token>" >> ~/.zshrc
