@@ -97,7 +97,7 @@ else # Python3 is available, so pip3 is also available
 
         if [ "$REPO_MANUALLY_CREATED" = false ]; then
             # Create GitHub repo using PyGithub
-            RETURNED_REPO_NAME=$(python3 -c "from github import Github
+            RETURNED_REPO_NAME=$(python3 -c "from github import Github, Auth
 import sys
 auth = Auth.Token('$GITHUB_TOKEN')
 g = Github(auth=auth)
@@ -121,7 +121,7 @@ fi
 # The way we do this isn't perfect, but works most of the time. We search for
 # the name of the repository from the user's repositories and return the result
 if [ "$REPO_MANUALLY_CREATED" = true ]; then
-    RETURNED_REPO_NAME=$(python3 -c "from github import Github
+    RETURNED_REPO_NAME=$(python3 -c "from github import Github, Auth
 import sys
 auth = Auth.Token('$GITHUB_TOKEN')
 g = Github(auth=auth)
