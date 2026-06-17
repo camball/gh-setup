@@ -9,13 +9,14 @@ gh-setup path-to-directory-to-set-up/
 
 ## Install
 
-1. [Create a fine-grained access token](https://github.com/settings/personal-access-tokens/new) with "Public Repositories (read-only)" repository access (it doesn't need access to any private info). Copy the token and export it as the `GITHUB_TOKEN` environment variable on shell startup (in your `.zshrc`, `.bashrc`, etc.)
+1. Clone this repo to a location of your choice.
+2. [Create a fine-grained access token](https://github.com/settings/personal-access-tokens/new) with "All repositories" or "Only select repositories" access, and add "Contents" (read-only) and "Administration" (read and write) permissions. Copy the token and export it as the `GITHUB_TOKEN` environment variable on shell startup (in your `.zshrc`, `.bashrc`, etc.)
 
     ```sh
     echo "export GITHUB_TOKEN=<your_github_token>" >> ~/.zshrc
     ```
 
-2. Build with `make` to place the command on your path (in `/usr/local/bin`)
+3. Build with `make` to place the command on your path (in `/usr/local/bin`)
 
     ```sh
     make
