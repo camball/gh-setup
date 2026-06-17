@@ -84,12 +84,12 @@ else # Python3 is available, so pip3 is also available
         manuallyCreateRepo
     else
         # make sure module PyGithub is installed
-        if [ "$(pip3 list | grep -o "PyGithub")" != "PyGithub" ]; then
+        if [ "$(python3 -m pip list | grep -o "PyGithub")" != "PyGithub" ]; then
             echo "Dependency \`PyGithub\` not installed: attempting to install with pip3..."
-            pip3 install PyGithub
+            python3 -m pip install PyGithub --break-system-packages
             echo ""
 
-            if [ "$(pip3 list | grep -o "PyGithub")" != "PyGithub" ]; then
+            if [ "$(python3 -m pip list | grep -o "PyGithub")" != "PyGithub" ]; then
                 echo "Dependency \`PyGithub\` could not be installed..."
                 manuallyCreateRepo
             fi
